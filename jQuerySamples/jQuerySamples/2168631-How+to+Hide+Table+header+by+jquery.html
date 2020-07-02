@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+</head>
+<body>
+    <div class="card select_broker_wrapper">
+        <div class="card-header">
+            <input id="all-brokers" class="select_all" type="checkbox" value="all-brokers" name="all-brokers" title="Select All">
+            <label for="all-brokers">Brokers</label>
+        </div>
+        <div data-simplebar="init">
+            <div class="simplebar-wrapper">
+                <div class="simplebar-height-auto-observer-wrapper">
+                    <div class="simplebar-height-auto-observer"></div>
+                </div><div class="simplebar-mask">
+                    <div class="simplebar-offset" style="right: -17px; bottom: 0px;">
+                        <div class="simplebar-content" style="padding: 0px; height: 100%; overflow: hidden scroll;">
+
+                            <table id="tblBroker" class="dataTable">
+                                <thead>
+                                    <tr class="tblBroker_head">
+                                        <th>Broker Name </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input id="select-broker-1" class="clsBroker" checked="checked" type="checkbox">
+                                            <label for="select-broker-1">Barclays Capital</label>
+                                            <input type="hidden" id="shortname" value="Barclays Capital">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#tblBroker").DataTable(
+                {
+                    language: { search: "" },
+                    searching: true,
+                    bPaginate: false,
+                    /*bInfo: false,*/
+                    scrollCollapse: true,
+                    ordering: true,
+                    scrollX: true,
+                    "fnInitComplete": function (oSettings) {
+                        $('.select_broker_wrapper').find('.tblBroker_head').hide();
+                    }
+                });
+        });
+    </script>
+</body>
+</html>
