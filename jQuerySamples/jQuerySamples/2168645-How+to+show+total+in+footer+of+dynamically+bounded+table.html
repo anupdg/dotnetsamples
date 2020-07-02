@@ -1,0 +1,50 @@
+<html>
+
+<body>
+    <script>
+        let No_of_Trailers_Unloading =0;
+        let No_of_Trailers_Loading =0;
+        let Total_No_of_Trailers =0;
+        let Diesel_In_Ltrs =0;
+        let Diesel_In_Amount =0;
+        for (var i in result) {
+            var dtr = "";
+            var dtbill = "";
+            if (result[i].approval_status == 1) {
+                dtr = "<td>Reco</td><td></td>";
+            } else {
+                dtr = '<td>Pending</td><td class ="text-center"><i class ="fa fa-trash-o cursor-pointer text-danger" onclick="DeleteApproval(' + result[i].SrNo + ')" ></i></td>';
+            }
+
+            if (result[i].Bill_Front_Copy == '' || result[i].Bill_Front_Copy == null) {
+                dtbill = "<td>No Bill</td>";
+            } else {
+                dtbill = "<td><a href=*******/" + result[i].Bill_Front_Copy + " alt='Bill Front' target='_blank' class='btn-download'>Bill</a></td>";
+            }
+            No_of_Trailers_Unloading += result[i].No_of_Trailers_Unloading;
+            No_of_Trailers_Loading += result[i].No_of_Trailers_Loading;
+            Total_No_of_Trailers += result[i].Total_No_of_Trailers;
+            Diesel_In_Ltrs += result[i].Diesel_In_Ltrs;
+            Diesel_In_Amount += result[i].Diesel_In_Amount;
+            
+            employeeTable.append(`<tr>
+                                    <td>${result[i].Date}</td>
+                                    <td>${result[i].No_of_Trailers_Unloading}</td>
+                                    <td>${result[i].No_of_Trailers_Loading}</td>
+                                    <td>${result[i].Total_No_of_Trailers}</td>
+                                    <td>${result[i].Diesel_In_Ltrs}</td>
+                                    <td>${result[i].Diesel_In_Amount}</td>
+                                    <td>${result[i].rate}</td> 
+                                    <td>${result[i].supervisor_comments}</td>
+                                    <td>${result[i].manager_comments}</td>
+                                   
+                                   ${dtbill}
+                                      ${dtr}                                   
+                                </tr>
+
+                            `);
+        }
+    </script>
+</body>
+
+</html>
