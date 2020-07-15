@@ -74,6 +74,7 @@
     <Content Include="2168624-Passing+Uid+primary+key+into+different+table+and+column.aspx" />
     <Content Include="2168858-Main+Page+won+t+refresh+when+Modal+form+is+Closed.aspx" />
     <Content Include="2168936-How+To+Get+Column+Other+Total+And+Grand+Total+In+Gridview.aspx" />
+    <Content Include="2169001-Dynamic+Generation+of+Text+Fields+and+Saving+the+Values+to+database.aspx" />
     <Content Include="Cascading_Dropdowns_And_GridView.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -104,6 +105,13 @@
     </Compile>
     <Compile Include="2168936-How+To+Get+Column+Other+Total+And+Grand+Total+In+Gridview.aspx.designer.cs">
       <DependentUpon>2168936-How+To+Get+Column+Other+Total+And+Grand+Total+In+Gridview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="2169001-Dynamic+Generation+of+Text+Fields+and+Saving+the+Values+to+database.aspx.cs">
+      <DependentUpon>2169001-Dynamic+Generation+of+Text+Fields+and+Saving+the+Values+to+database.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="2169001-Dynamic+Generation+of+Text+Fields+and+Saving+the+Values+to+database.aspx.designer.cs">
+      <DependentUpon>2169001-Dynamic+Generation+of+Text+Fields+and+Saving+the+Values+to+database.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cascading_Dropdowns_And_GridView.aspx.cs">
       <DependentUpon>Cascading_Dropdowns_And_GridView.aspx</DependentUpon>
