@@ -76,6 +76,7 @@
     <Content Include="2168936-How+To+Get+Column+Other+Total+And+Grand+Total+In+Gridview.aspx" />
     <Content Include="2169001-Dynamic+Generation+of+Text+Fields+and+Saving+the+Values+to+database.aspx" />
     <Content Include="2169001-Dynamic+Generation+of+Text+Fields+and+Saving+the+Values+to+database1.aspx" />
+    <Content Include="2169072-Create+a+text+delimited+string+of+content+and+display+separated+text+in+control+on+page.aspx" />
     <Content Include="Cascading_Dropdowns_And_GridView.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -120,6 +121,13 @@
     </Compile>
     <Compile Include="2169001-Dynamic+Generation+of+Text+Fields+and+Saving+the+Values+to+database1.aspx.designer.cs">
       <DependentUpon>2169001-Dynamic+Generation+of+Text+Fields+and+Saving+the+Values+to+database1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="2169072-Create+a+text+delimited+string+of+content+and+display+separated+text+in+control+on+page.aspx.cs">
+      <DependentUpon>2169072-Create+a+text+delimited+string+of+content+and+display+separated+text+in+control+on+page.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="2169072-Create+a+text+delimited+string+of+content+and+display+separated+text+in+control+on+page.aspx.designer.cs">
+      <DependentUpon>2169072-Create+a+text+delimited+string+of+content+and+display+separated+text+in+control+on+page.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cascading_Dropdowns_And_GridView.aspx.cs">
       <DependentUpon>Cascading_Dropdowns_And_GridView.aspx</DependentUpon>
