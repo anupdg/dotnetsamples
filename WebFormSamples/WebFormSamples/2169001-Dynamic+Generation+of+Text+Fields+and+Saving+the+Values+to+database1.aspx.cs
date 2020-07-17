@@ -17,7 +17,10 @@ namespace WebFormSamples
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack) {
+                Session["ControlGenerated"] = new Dictionary<int, PertnerData> { { 1, new PertnerData() } };
+                GenerateControls();
+            }
         }
         private void AddLabel(string label, Panel p)
         {
@@ -25,10 +28,11 @@ namespace WebFormSamples
             lbl.Text = label;
             p.Controls.Add(lbl);
         }
-        private void AddTextBox(string id, Panel p)
+        private void AddTextBox(string id, Panel p, string data)
         {
             TextBox box = new TextBox();
             box.ID = id;
+            box.Text = data;
             p.Controls.Add(box);
         }
 
@@ -42,48 +46,69 @@ namespace WebFormSamples
 
         private void GenerateControls()
         {
-            int numberOfControls = Convert.ToInt32(Session["ControlGenerated"]);
+            Dictionary<int, PertnerData> numberOfControls = (Dictionary<int, PertnerData>)Session["ControlGenerated"];
             container.Controls.Clear();
-            for (int i = 0; i < numberOfControls; i++)
+            foreach (var i in numberOfControls)
             {
                 Panel p = new Panel();
+                p.ID = $"container{i.Key}";
                 p.Style.Add("border", "solid 1px blue");
                 p.Style.Add("margin", "5px");
                 container.Controls.Add(p);
 
-                AddLabel($"Name {i}", p);
-                AddTextBox($"txtPName{i}", p);
-                AddLabel($"Email {i}", p);
-                AddTextBox($"txtPEmail{i}", p);
-                AddLabel($"Designation {i}", p);
-                AddTextBox($"txtPDesignation{i}", p);
+                AddLabel($"Name {i.Key}", p);
+                AddTextBox($"txtPName{i.Key}", p, i.Value.PName);
+                AddLabel($"Email {i.Key}", p);
+                AddTextBox($"txtPEmail{i.Key}", p, i.Value.PEmail);
+                AddLabel($"Designation {i.Key}", p);
+                AddTextBox($"txtPDesignation{i.Key}", p, i.Value.PDesignation);
+                AddDeleteButton(i.Key, p);
                 container.Controls.Add(new LiteralControl("<br />"));
             }
-
         }
+
+        private void AddDeleteButton(int id, Panel p)
+        {
+            LinkButton button = new LinkButton();
+            button.ID = $"Delete{id}";
+            button.Attributes.Add("DataId", id.ToString());
+            button.Text = $"Delete {id}";
+            button.Style.Add("margin-left", "5px");
+            button.Click += new EventHandler(delete_Click);
+            p.Controls.Add(button);
+        }
+        protected void delete_Click(object sender, EventArgs e) {
+            var btn = sender as LinkButton;
+            var idToDelete = Convert.ToInt32( btn.Attributes["DataId"]);
+            Dictionary<int, PertnerData> numberOfControls = (Dictionary<int, PertnerData>)Session["ControlGenerated"];
+            numberOfControls = numberOfControls.Where(c => c.Key != idToDelete).ToDictionary(x => x.Key, x => x.Value);
+            Session["ControlGenerated"] = numberOfControls;
+            GenerateControls();
+        }
+
         protected void btnAddAnother_Click(object sender, EventArgs e)
         {
-            int numberOfControls = Convert.ToInt32(Session["ControlGenerated"]);
-            numberOfControls++;
+            Dictionary<int, PertnerData> numberOfControls = (Dictionary<int, PertnerData>)Session["ControlGenerated"];
+            numberOfControls.Add(numberOfControls.Keys.Max() + 1, new PertnerData());
             Session["ControlGenerated"] = numberOfControls;
             GenerateControls();
         }
 
         protected void btnGetValues_Click(object sender, EventArgs e)
         {
-            int numberOfControls = Convert.ToInt32(Session["ControlGenerated"]);
+            var keys = ((Dictionary<int, PertnerData>)Session["ControlGenerated"]).Keys;
 
-            List<PertnerData> data = new List<PertnerData>();
-
+            Dictionary<int, PertnerData> numberOfControls = new Dictionary<int, PertnerData>();
             PertnerData pd;
-            for (int i = 0; i < numberOfControls; i++)
+            foreach (var i in keys)
             {
                 pd = new PertnerData();
                 pd.PName = GetValue($"txtPName{i}");
                 pd.PEmail = GetValue($"txtPEmail{i}");
                 pd.PDesignation = GetValue($"txtPDesignation{i}");
-                data.Add(pd);
+                numberOfControls[i] = pd;
             }
+            Session["ControlGenerated"] = numberOfControls;
         }
         string GetValue(string id)
         {
