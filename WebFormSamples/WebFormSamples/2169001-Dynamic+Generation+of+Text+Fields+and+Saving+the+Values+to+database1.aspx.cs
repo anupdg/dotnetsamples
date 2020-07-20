@@ -18,7 +18,7 @@ namespace WebFormSamples
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack) {
-                Session["ControlGenerated"] = new Dictionary<int, PertnerData> { { 1, new PertnerData() } };
+                Session["ControlGenerated"] = new Dictionary<int, PertnerData> { };
                 GenerateControls();
             }
         }
@@ -90,8 +90,18 @@ namespace WebFormSamples
         {
             Dictionary<int, PertnerData> numberOfControls = (Dictionary<int, PertnerData>)Session["ControlGenerated"];
             numberOfControls.Add(numberOfControls.Keys.Max() + 1, new PertnerData());
+            fillData(ref numberOfControls);
             Session["ControlGenerated"] = numberOfControls;
             GenerateControls();
+        }
+
+        private void fillData(ref Dictionary<int, PertnerData>  numberOfControls) {
+
+            foreach (var controls in numberOfControls) {
+                controls.Value.PName = GetValue($"txtPName{controls.Key}");
+                controls.Value.PEmail = GetValue($"txtPEmail{controls.Key}");
+                controls.Value.PDesignation = GetValue($"txtPDesignation{controls.Key}"); 
+            }
         }
 
         protected void btnGetValues_Click(object sender, EventArgs e)
@@ -110,9 +120,10 @@ namespace WebFormSamples
             }
             Session["ControlGenerated"] = numberOfControls;
         }
+
         string GetValue(string id)
         {
-            return ((TextBox)container.FindControl(id)).Text;
+            return ((TextBox)container.FindControl(id))?.Text;
         }
     }
 }
